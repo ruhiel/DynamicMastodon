@@ -34,9 +34,9 @@ namespace DynamicMastodon
         #region Fetching an account
         [Method(Method.GET)]
         [Query("/api/v1/accounts/{id}")]
-        public async Task<dynamic> Account(int id)
+        public async Task<dynamic> GetAccount(int id)
         {
-            var response = await Execute(nameof(Account),
+            var response = await Execute(nameof(GetAccount),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -47,9 +47,9 @@ namespace DynamicMastodon
         #region Getting the current user
         [Method(Method.GET)]
         [Query("/api/v1/accounts/verify_credentials")]
-        public async Task<dynamic> CurrentAccount()
+        public async Task<dynamic> GetCurrentAccount()
         {
-            var response = await Execute(nameof(CurrentAccount));
+            var response = await Execute(nameof(GetCurrentAccount));
 
             return DynamicJson.Parse(response.Content);
         }
@@ -68,9 +68,9 @@ namespace DynamicMastodon
         #region Getting an account's followers
         [Method(Method.GET)]
         [Query("/api/v1/accounts/{id}/followers")]
-        public async Task<StreamContent> GettingFollowers(int id, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetFollowers(int id, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(GettingFollowers),
+            var response = await Execute(nameof(GetFollowers),
                 new { max_id, since_id, limit }.ToDictionary(),
                 new { id }.ToUrlSegment());
 
@@ -80,9 +80,9 @@ namespace DynamicMastodon
         #region Getting who account is following
         [Method(Method.GET)]
         [Query("/api/v1/accounts/{id}/following")]
-        public async Task<StreamContent> GettingFollowing(int id, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetFollowing(int id, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(GettingFollowing),
+            var response = await Execute(nameof(GetFollowing),
                 new { max_id, since_id, limit }.ToDictionary(),
                 new { id }.ToUrlSegment());
 
@@ -92,9 +92,9 @@ namespace DynamicMastodon
         #region Getting an account's statuses
         [Method(Method.GET)]
         [Query("/api/v1/accounts/{id}/statuses")]
-        public async Task<dynamic> GettingStatuses(int id, bool? only_media = null, bool? exclude_replies = null, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<dynamic> GetStatuses(int id, bool? only_media = null, bool? exclude_replies = null, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(GettingStatuses),
+            var response = await Execute(nameof(GetStatuses),
                 new { only_media, exclude_replies, max_id, since_id, limit }.ToDictionary(),
                 new { id }.ToUrlSegment());
 
@@ -126,9 +126,9 @@ namespace DynamicMastodon
         #region Blocking/unblocking an account
         [Method(Method.POST)]
         [Query("/api/v1/accounts/{id}/block")]
-        public async Task<dynamic> Blocking(int id)
+        public async Task<dynamic> Block(int id)
         {
-            var response = await Execute(nameof(Blocking),
+            var response = await Execute(nameof(Block),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -136,9 +136,9 @@ namespace DynamicMastodon
         }
         [Method(Method.POST)]
         [Query("/api/v1/accounts/{id}/unblock")]
-        public async Task<dynamic> Unblocking(int id)
+        public async Task<dynamic> Unblock(int id)
         {
-            var response = await Execute(nameof(Unblocking),
+            var response = await Execute(nameof(Unblock),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -148,9 +148,9 @@ namespace DynamicMastodon
         #region Muting/unmuting an account
         [Method(Method.POST)]
         [Query("/api/v1/accounts/{id}/mute")]
-        public async Task<dynamic> Muting(int id)
+        public async Task<dynamic> Mute(int id)
         {
-            var response = await Execute(nameof(Muting),
+            var response = await Execute(nameof(Mute),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -158,9 +158,9 @@ namespace DynamicMastodon
         }
         [Method(Method.POST)]
         [Query("/api/v1/accounts/{id}/unmute")]
-        public async Task<dynamic> Unmuting(int id)
+        public async Task<dynamic> Unmute(int id)
         {
-            var response = await Execute(nameof(Unmuting),
+            var response = await Execute(nameof(Unmute),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -170,9 +170,9 @@ namespace DynamicMastodon
         #region Getting an account's relationships
         [Method(Method.GET)]
         [Query("/api/v1/accounts/relationships")]
-        public async Task<dynamic> Relationships(int id)
+        public async Task<dynamic> GetRelationships(int id)
         {
-            var method = typeof(DynamicMastodonClient).GetMethod(nameof(Relationships), new Type[] { typeof(int) });
+            var method = typeof(DynamicMastodonClient).GetMethod(nameof(GetRelationships), new Type[] { typeof(int) });
             var response = await Execute(method,
             new { id }.ToDictionary());
 
@@ -180,9 +180,9 @@ namespace DynamicMastodon
         }
         [Method(Method.GET)]
         [Query("/api/v1/accounts/relationships")]
-        public async Task<dynamic> Relationships(IEnumerable<int> id)
+        public async Task<dynamic> GetRelationships(IEnumerable<int> id)
         {
-            var method = typeof(DynamicMastodonClient).GetMethod(nameof(Relationships), new Type[] { typeof(IEnumerable<int>) });
+            var method = typeof(DynamicMastodonClient).GetMethod(nameof(GetRelationships), new Type[] { typeof(IEnumerable<int>) });
             var response = await Execute(method,
             new { id }.ToDictionary());
 
@@ -192,9 +192,9 @@ namespace DynamicMastodon
         #region Searching for accounts
         [Method(Method.GET)]
         [Query("/api/v1/accounts/search")]
-        public async Task<dynamic> SearchAccounts(string q, int limit)
+        public async Task<dynamic> SearchAccount(string q, int limit)
         {
-            var response = await Execute(nameof(SearchAccounts),
+            var response = await Execute(nameof(SearchAccount),
                 new { q, limit }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
@@ -205,9 +205,9 @@ namespace DynamicMastodon
         #region Registering an application
         [Method(Method.POST)]
         [Query("/api/v1/apps")]
-        public async Task<dynamic> Registering(string client_name, OAuthScope scope, string redirect_uris = "urn:ietf:wg:oauth:2.0:oob", string website = null)
+        public async Task<dynamic> Register(string client_name, OAuthScope scope, string redirect_uris = "urn:ietf:wg:oauth:2.0:oob", string website = null)
         {
-            var response = await Execute(nameof(Registering),
+            var response = await Execute(nameof(Register),
                 new { client_name, redirect_uris, scope, website }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
@@ -218,9 +218,9 @@ namespace DynamicMastodon
         #region Fetching a user's blocks
         [Method(Method.GET)]
         [Query("/api/v1/blocks")]
-        public async Task<StreamContent> Blocks(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetBlocks(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(Blocks),
+            var response = await Execute(nameof(GetBlocks),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -231,9 +231,9 @@ namespace DynamicMastodon
         #region Fetching a user's favourites
         [Method(Method.GET)]
         [Query("/api/v1/favourites")]
-        public async Task<StreamContent> FetchingFavourites(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetFavourites(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(FetchingFavourites),
+            var response = await Execute(nameof(GetFavourites),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -244,9 +244,9 @@ namespace DynamicMastodon
         #region Fetching a list of follow requests
         [Method(Method.GET)]
         [Query("/api/v1/follow_requests")]
-        public async Task<StreamContent> FollowRequests(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetFollowRequests(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(FollowRequests),
+            var response = await Execute(nameof(GetFollowRequests),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -255,16 +255,16 @@ namespace DynamicMastodon
         #region Authorizing or rejecting follow requests
         [Method(Method.POST)]
         [Query("/api/v1/follow_requests/{id}/authorize")]
-        public async Task AuthorizeFollowRequests(int id)
+        public async Task AuthorizeFollowRequest(int id)
         {
-            await Execute(nameof(AuthorizeFollowRequests),
+            await Execute(nameof(AuthorizeFollowRequest),
                 null, new { id }.ToUrlSegment());
         }
         [Method(Method.POST)]
         [Query("/api/v1/follow_requests/{id}/reject")]
-        public async Task RejectFollowRequests(int id)
+        public async Task RejectFollowRequest(int id)
         {
-            await Execute(nameof(RejectFollowRequests),
+            await Execute(nameof(RejectFollowRequest),
                 null, new { id }.ToUrlSegment());
         }
         #endregion
@@ -273,9 +273,9 @@ namespace DynamicMastodon
         #region Following a remote user
         [Method(Method.POST)]
         [Query("/api/v1/follows")]
-        public async Task<dynamic> Follows(string uri)
+        public async Task<dynamic> FollowRemoteUser(string uri)
         {
-            var response = await Execute(nameof(Follows),
+            var response = await Execute(nameof(FollowRemoteUser),
                 new { uri }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
@@ -286,9 +286,9 @@ namespace DynamicMastodon
         #region Getting instance information
         [Method(Method.GET)]
         [Query("/api/v1/instance")]
-        public async Task<dynamic> GettingInstance()
+        public async Task<dynamic> GetInstance()
         {
-            var response = await Execute(nameof(GettingInstance));
+            var response = await Execute(nameof(GetInstance));
 
             return DynamicJson.Parse(response.Content);
         }
@@ -298,9 +298,9 @@ namespace DynamicMastodon
         #region Uploading a media attachment
         [Method(Method.POST)]
         [Query("/api/v1/media")]
-        public async Task<dynamic> UploadingMedia(string file)
+        public async Task<dynamic> UploadMedia(string file)
         {
-            var response = await Execute(nameof(UploadingMedia),
+            var response = await Execute(nameof(UploadMedia),
                 new { file }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
@@ -311,9 +311,9 @@ namespace DynamicMastodon
         #region Fetching a user's mutes
         [Method(Method.GET)]
         [Query("/api/v1/mutes")]
-        public async Task<StreamContent> Mutes(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetMutes(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(Mutes),
+            var response = await Execute(nameof(GetMutes),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -324,9 +324,9 @@ namespace DynamicMastodon
         #region Fetching a user's notifications
         [Method(Method.GET)]
         [Query("/api/v1/notifications")]
-        public async Task<StreamContent> Notifications(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetNotifications(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(Notifications),
+            var response = await Execute(nameof(GetNotifications),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -335,9 +335,9 @@ namespace DynamicMastodon
         #region Getting a single notification
         [Method(Method.GET)]
         [Query("/api/v1/notifications/{id}")]
-        public async Task<dynamic> GettingNotification(int id)
+        public async Task<dynamic> GetNotification(int id)
         {
-            var response = await Execute(nameof(GettingNotification),
+            var response = await Execute(nameof(GetNotification),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -357,9 +357,9 @@ namespace DynamicMastodon
         #region Fetching a user's reports
         [Method(Method.GET)]
         [Query("/api/v1/reports")]
-        public async Task<dynamic> Reports()
+        public async Task<dynamic> GetReports()
         {
-            var response = await Execute(nameof(Reports));
+            var response = await Execute(nameof(GetReports));
 
             return DynamicJson.Parse(response.Content);
         }
@@ -367,9 +367,9 @@ namespace DynamicMastodon
         #region Reporting a user
         [Method(Method.POST)]
         [Query("/api/v1/reports")]
-        public async Task<dynamic> ReportingUser(int account_id, IEnumerable<int> status_ids, string comment)
+        public async Task<dynamic> Report(int account_id, IEnumerable<int> status_ids, string comment)
         {
-            var response = await Execute(nameof(ReportingUser), new { account_id, status_ids, comment }.ToDictionary());
+            var response = await Execute(nameof(Report), new { account_id, status_ids, comment }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
         }
@@ -392,9 +392,9 @@ namespace DynamicMastodon
         #region Fetching a status
         [Method(Method.GET)]
         [Query("/api/v1/statuses/{id}")]
-        public async Task<dynamic> Statuses(int id)
+        public async Task<dynamic> GetStatus(int id)
         {
-            var response = await Execute(nameof(Statuses),
+            var response = await Execute(nameof(GetStatus),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -404,9 +404,9 @@ namespace DynamicMastodon
         #region Getting status context
         [Method(Method.GET)]
         [Query("/api/v1/statuses/{id}/context")]
-        public async Task<dynamic> StatusContext(int id)
+        public async Task<dynamic> GetStatusContext(int id)
         {
-            var response = await Execute(nameof(StatusContext),
+            var response = await Execute(nameof(GetStatusContext),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -416,9 +416,9 @@ namespace DynamicMastodon
         #region Getting a card associated with a status
         [Method(Method.GET)]
         [Query("/api/v1/statuses/{id}/card")]
-        public async Task<dynamic> StatusCard(int id)
+        public async Task<dynamic> GetStatusCard(int id)
         {
-            var response = await Execute(nameof(StatusCard),
+            var response = await Execute(nameof(GetStatusCard),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -428,9 +428,9 @@ namespace DynamicMastodon
         #region Getting who reblogged/favourited a status
         [Method(Method.GET)]
         [Query("/api/v1/statuses/{id}/reblogged_by")]
-        public async Task<dynamic> Reblogged(int id, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<dynamic> GetRebloggedStatus(int id, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(Reblogged),
+            var response = await Execute(nameof(GetRebloggedStatus),
                 new { max_id, since_id, limit }.ToDictionary(),
                 new { id }.ToUrlSegment());
 
@@ -438,9 +438,9 @@ namespace DynamicMastodon
         }
         [Method(Method.GET)]
         [Query("/api/v1/statuses/{id}/favourited_by")]
-        public async Task<dynamic> Favourited(int id, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<dynamic> GetFavouritedStatus(int id, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(Favourited),
+            var response = await Execute(nameof(GetFavouritedStatus),
                 new { max_id, since_id, limit }.ToDictionary(),
                 new { id }.ToUrlSegment());
 
@@ -450,9 +450,9 @@ namespace DynamicMastodon
         #region Posting a new status
         [Method(Method.POST)]
         [Query("/api/v1/statuses")]
-        public async Task<dynamic> PostingStatus(string status, int? in_reply_to_id = null, IEnumerable<int> media_ids = null, bool? sensitive = null, string spoiler_text = null, Visibility? visibility = null)
+        public async Task<dynamic> PostStatus(string status, int? in_reply_to_id = null, IEnumerable<int> media_ids = null, bool? sensitive = null, string spoiler_text = null, Visibility? visibility = null)
         {
-            var response = await Execute(nameof(PostingStatus),
+            var response = await Execute(nameof(PostStatus),
                 new { status, in_reply_to_id, media_ids, sensitive, spoiler_text, visibility }.ToDictionary());
 
             return DynamicJson.Parse(response.Content);
@@ -461,9 +461,9 @@ namespace DynamicMastodon
         #region Deleting a status
         [Method(Method.DELETE)]
         [Query("/api/v1/statuses/{id}")]
-        public async Task<dynamic> DeletingStatus(int id)
+        public async Task<dynamic> DeleteStatus(int id)
         {
-            var response = await Execute(nameof(DeletingStatus),
+            var response = await Execute(nameof(DeleteStatus),
                 null,
                 new { id }.ToUrlSegment());
 
@@ -519,9 +519,9 @@ namespace DynamicMastodon
         #region Retrieving a timeline
         [Method(Method.GET)]
         [Query("/api/v1/timelines/home")]
-        public async Task<StreamContent> HomeTimeline(int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetHomeTimeline(int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(HomeTimeline),
+            var response = await Execute(nameof(GetHomeTimeline),
                 new { max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -529,9 +529,9 @@ namespace DynamicMastodon
 
         [Method(Method.GET)]
         [Query("/api/v1/timelines/public")]
-        public async Task<StreamContent> PublicTimeline(bool? local = null, int? max_id = null, int? since_id = null, int? limit = 20)
+        public async Task<StreamContent> GetPublicTimeline(bool? local = null, int? max_id = null, int? since_id = null, int? limit = 20)
         {
-            var response = await Execute(nameof(PublicTimeline),
+            var response = await Execute(nameof(GetPublicTimeline),
                 new { local, max_id, since_id, limit }.ToDictionary());
 
             return CreateStreamContent(response);
@@ -539,9 +539,9 @@ namespace DynamicMastodon
         
         [Method(Method.GET)]
         [Query("/api/v1/timelines/tag/{hashtag}")]
-        public async Task<StreamContent> HashtagTimeline(string hashtag, bool? local = null, int? max_id = null, int? since_id = null, int? limit = null)
+        public async Task<StreamContent> GetHashtagTimeline(string hashtag, bool? local = null, int? max_id = null, int? since_id = null, int? limit = null)
         {
-            var response = await Execute(nameof(PublicTimeline),
+            var response = await Execute(nameof(GetHashtagTimeline),
                 new { local, max_id, since_id, limit }.ToDictionary(),
                 new { hashtag }.ToUrlSegment());
 

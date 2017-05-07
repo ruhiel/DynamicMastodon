@@ -37,7 +37,7 @@ namespace DynamicMastodon.Test
             var client = new DynamicMastodonClient(_Host, _AccessToken);
             var id = _TestUserID;
 
-            var result = await client.Account(id);
+            var result = await client.GetAccount(id);
 
         }
 
@@ -45,15 +45,15 @@ namespace DynamicMastodon.Test
         public async Task TestMethod2()
         {
             var client = new DynamicMastodonClient(_Host, _AccessToken);
-            var result = await client.PublicTimeline(limit: 20);
+            var result = await client.GetPublicTimeline(limit: 20);
 
             Assert.AreEqual(20, ((object[])result.Statuses).Length);
 
-            result = await client.HomeTimeline(limit: 20);
+            result = await client.GetHomeTimeline(limit: 20);
 
             Assert.AreEqual(20, ((object[])result.Statuses).Length);
 
-            result = await client.HashtagTimeline(hashtag: "超会議", limit: 20);
+            result = await client.GetHashtagTimeline(hashtag: "超会議", limit: 20);
 
             Assert.AreEqual(20, ((object[])result.Statuses).Length);
 
